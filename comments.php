@@ -5,9 +5,10 @@
     </div>
 
     <div class="discussion-box-container">
+        
         <div class="rating-bar">
             <div class="rating-left">
-                <span style="font-weight: 700; font-size: 0.85rem; color: var(--text-grey); letter-spacing: 1px;">AVALIAR:</span>
+                <span class="rating-label">AVALIAR:</span>
                 <div class="stars" id="star-rating">
                     <i class="ph ph-star-fill" data-value="1"></i>
                     <i class="ph ph-star-fill" data-value="2"></i>
@@ -16,6 +17,7 @@
                     <i class="ph ph-star-fill" data-value="5"></i>
                 </div>
             </div>
+            
             <div style="font-size: 0.8rem; color: var(--text-grey);">
                 <?php if ( is_user_logged_in() ) : ?>
                     Logado como: <strong><?php echo wp_get_current_user()->display_name; ?></strong>
@@ -37,7 +39,7 @@
             <?php else : ?>
                 <textarea class="comment-textarea" placeholder="Faça login para comentar..." disabled></textarea>
                 <div style="text-align: right;">
-                    <a href="<?php echo wp_login_url(); ?>" class="btn-gradient">Entrar</a>
+                    <a href="<?php echo wp_login_url(); ?>" class="btn-gradient" style="padding:10px 30px;">Entrar</a>
                 </div>
             <?php endif; ?>
         </div>

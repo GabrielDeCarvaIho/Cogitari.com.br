@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Entrar | COGITARI</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="nav-container">
+            <div class="logo-area">
+                <a href="visualizar.html" style="display:flex; gap:10px; align-items:center;">
+                    <img src="assets/images/cogitarilogo.png" class="logo-img-icon" alt="Icone">
+                    <img src="assets/images/cogitariwordmark.png" class="logo-img-text" alt="Texto"> 
+                </a>
+            </div>
+            
+            <div class="header-actions">
+                <a href="visualizar.html" class="btn-gradient" style="padding: 10px 24px; font-size: 0.9rem;">Home</a>
+            </div>
+        </div>
+    </header>
+
+    <div style="height: 120px;"></div>
+
+    <main class="form-section">
+        
+        <div class="form-container glass">
+            
+            <div style="margin-bottom: 30px;">
+                <img src="assets/images/cogitarilogo.png" style="height: 50px; margin: 0 auto; display: block;">
+            </div>
+
+            <div class="auth-toggle">
+                <div class="auth-btn active" onclick="switchAuth('login')">Entrar</div>
+                <div class="auth-btn" onclick="switchAuth('register')">Cadastrar</div>
+            </div>
+
+            <div id="form-login" class="form-content active">
+                <h2 class="form-title">Bem-vindo</h2>
+                <p class="form-subtitle">Acesse sua conta para continuar.</p>
+
+                <form>
+                    <div class="input-wrapper">
+                        <input type="text" class="glass-input" placeholder="Usuário ou E-mail">
+                    </div>
+                    <div class="input-wrapper">
+                        <input type="password" class="glass-input" placeholder="Sua Senha">
+                        <i class="ph ph-eye toggle-password" onclick="togglePass(this)"></i>
+                    </div>
+                    
+                    <div style="text-align: left; margin-bottom: 20px;">
+                        <label style="color: var(--text-grey); font-size: 0.85rem;">
+                            <input type="checkbox"> Lembrar de mim
+                        </label>
+                    </div>
+
+                    <button type="button" class="btn-gradient" style="width: 100%;">Acessar Painel</button>
+                </form>
+                
+                <div class="social-login-divider"><span>ou entre com</span></div>
+                
+                <div class="social-buttons">
+                    <div class="social-btn google"><i class="ph ph-google-logo"></i> Google</div>
+                    <div class="social-btn facebook"><i class="ph ph-facebook-logo"></i> Facebook</div>
+                    <div class="social-btn outlook"><i class="ph ph-microsoft-outlook-logo"></i> Outlook</div>
+                </div>
+                
+                <div class="auth-extra-links">
+                    <a href="#">Esqueceu a senha?</a>
+                </div>
+            </div>
+
+            <div id="form-register" class="form-content">
+                <h2 class="form-title">Criar conta</h2>
+                <p class="form-subtitle">Junte-se à comunidade Cogitari.</p>
+
+                <form onsubmit="return validateAge()">
+                    <div class="input-wrapper">
+                        <input type="text" class="glass-input" placeholder="Nome Completo">
+                    </div>
+
+                    <div class="input-wrapper">
+                        <input type="date" id="dob" class="glass-input" style="color:#94A3B8;">
+                    </div>
+
+                    <div class="input-wrapper">
+                        <input type="email" class="glass-input" placeholder="Seu melhor E-mail">
+                    </div>
+                    
+                    <div class="input-wrapper">
+                        <input type="password" class="glass-input" placeholder="Crie uma Senha" onkeyup="checkStrength(this.value)">
+                        <i class="ph ph-eye toggle-password" onclick="togglePass(this)"></i>
+                    </div>
+                    
+                    <div class="password-strength-container">
+                        <div class="strength-bar-bg">
+                            <div class="strength-bar-fill" id="strengthBar"></div>
+                        </div>
+                        <div class="strength-text" id="strengthText">Força da senha</div>
+                    </div>
+
+                    <div class="input-wrapper">
+                        <input type="password" class="glass-input" placeholder="Repetir Senha">
+                        <i class="ph ph-eye toggle-password" onclick="togglePass(this)"></i>
+                    </div>
+
+                    <button type="button" class="btn-gradient" style="width: 100%;" onclick="validateAge()">Finalizar Cadastro</button>
+                </form>
+
+                <div class="social-login-divider"><span>ou registre com</span></div>
+                
+                <div class="social-buttons">
+                    <div class="social-btn google"><i class="ph ph-google-logo"></i> Google</div>
+                    <div class="social-btn facebook"><i class="ph ph-facebook-logo"></i> Facebook</div>
+                    <div class="social-btn outlook"><i class="ph ph-microsoft-outlook-logo"></i> Outlook</div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-bottom">
+            <p>&copy; 2025 COGITARI. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Alternar Abas
+        function switchAuth(type) {
+            const lBtn = document.querySelector('.auth-btn:nth-child(1)');
+            const rBtn = document.querySelector('.auth-btn:nth-child(2)');
+            const lForm = document.getElementById('form-login');
+            const rForm = document.getElementById('form-register');
+
+            if (type === 'login') {
+                lBtn.classList.add('active');
+                rBtn.classList.remove('active');
+                lForm.classList.add('active');
+                rForm.classList.remove('active');
+            } else {
+                rBtn.classList.add('active');
+                lBtn.classList.remove('active');
+                rForm.classList.add('active');
+                lForm.classList.remove('active');
+            }
+        }
+
+        // Mostrar/Esconder Senha
+        function togglePass(icon) {
+            const input = icon.previousElementSibling;
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("ph-eye");
+                icon.classList.add("ph-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.remove("ph-eye-slash");
+                icon.classList.add("ph-eye");
+            }
+        }
+
+        // Validação de Idade (12 anos) e Ano Futuro
+        function validateAge() {
+            const dobInput = document.getElementById('dob').value;
+            if (!dobInput) return;
+            
+            const birthDate = new Date(dobInput);
+            const today = new Date();
+            
+            // Verifica data futura
+            if (birthDate > today) {
+                alert("Data de nascimento inválida (Futuro).");
+                return false;
+            }
+
+            // Calcula Idade
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            if (age < 12) {
+                alert("Você precisa ter pelo menos 12 anos para se registrar.");
+                return false;
+            }
+            return true;
+        }
+
+        // Medidor de Força da Senha
+        function checkStrength(password) {
+            let strength = 0;
+            const bar = document.getElementById('strengthBar');
+            const text = document.getElementById('strengthText');
+
+            if (password.length > 5) strength += 1;
+            if (password.length > 7) strength += 1;
+            if (/[A-Z]/.test(password)) strength += 1;
+            if (/[0-9]/.test(password)) strength += 1;
+            if (/[^A-Za-z0-9]/.test(password)) strength += 1;
+
+            const colors = ['#ef4444', '#ef4444', '#f97316', '#eab308', '#84cc16', '#22c55e'];
+            const texts = ['Muito Fraca', 'Muito Fraca', 'Fraca', 'Média', 'Boa', 'Muito Forte'];
+
+            bar.style.width = (strength * 20) + '%';
+            bar.style.backgroundColor = colors[strength];
+            text.innerText = texts[strength];
+            text.style.color = colors[strength];
+        }
+    </script>
+
+</body>
+</html>
